@@ -1,0 +1,15 @@
+[submodule "vendor/github.com/namsral/flag"]
+	path = vendor/github.com/namsral/flag
+	url = https://github.com/namsral/flag
+[submodule "vendor/github.com/sirupsen/logrus"]
+	path = vendor/github.com/sirupsen/logrus
+	url = https://github.com/sirupsen/logrus
+[submodule "vendor/golang.org/x/crypto"]
+	path = vendor/golang.org/x/crypto
+	url = https://go.googlesource.com/crypto
+[submodule "vendor/golang.org/x/sys"]
+	path = vendor/golang.org/x/sys
+	url = https://go.googlesource.com/sys
+[submodule "vendor/github.com/thoj/go-ircevent"]
+	path = vendor/github.com/thoj/go-ircevent
+	url = https://github.com/thoj/go-ircevent
