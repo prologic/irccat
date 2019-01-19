@@ -12,7 +12,7 @@ Useful for simple command-line notifications, part of a pipeline, monitoring
 or anything you can pipe to `irccat`. Example:
 
 ```#!bash
-echo 'Hello World!' | irccat irc.freenode.net gonuts
+echo 'Hello World!' | irccat irc.freenode.net:6667 gonuts
 ```
 
 ## Installation
@@ -31,12 +31,12 @@ $ docker pull prologic/irccat
 
 From Source:
 ```#!bash
-$ echo '<message>' | irccat <address> <channel>
+$ echo '<message>' | irccat <address>:<port> <channel>
 ```
 
 Using Docker:
 ```#!bash
-$ echo '<message>' | docker run -i -t prologic/irccat <address> <channel>
+$ echo '<message>' | docker run -i -t prologic/irccat <address>:<port> <channel>
 ```
 
 ## License
