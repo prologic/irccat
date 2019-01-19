@@ -1,30 +1,16 @@
-workspace:
-  base: /go
-  path: src/github.com/prologic/irccat
+kind: pipeline
+name: default
 
-pipeline:
-  build:
-    image: golang
+steps:
+  - name: build
+    image: golang:latest
     commands:
-      - go get -d
-      - go build .
+      - make build
 
-  docker:
-    image: plugins/docker
-    repo: r.mills.io/prologic/irccat
-    registry: r.mills.io
-    secrets: [ docker_username, docker_password ]
-
-  notify:
-    image: drillster/drone-email
-    host: mail.mills.io
-    from: drone@mills.io
-    skip_verify: true 
+  - name: notify
+    image: plugins/webhook
+    urls: https://msgbus.mills.io/ci.mills.io
     when:
-      status: [ changed, failure ]
-
-secrets:
-  registry_username:
-    external: true
-  registry_password:
-    external: true
+      status:
+        - success
+        - failure

@@ -1,33 +1,27 @@
-.PHONY: dev build image test deps clean
+.PHONY: dev build install image test deps clean
 
 CGO_ENABLED=0
-COMMIT=`git rev-parse --short HEAD`
-APP=irccat
-PACKAGE=
-REPO?=prologic/$(APP)
-TAG?=latest
-BUILD?=-dev
+COMMIT=$(shell git rev-parse --short HEAD)
 
 all: dev
 
 dev: build
-	@./$(APP)
+	@./irccat -v
 
-deps:
-	@go get ./...
+build:
+	@go build \
+		-tags "netgo static_build" -installsuffix netgo \
+		-ldflags "-w -X $(shell go list)/.Commit=$(COMMIT)" \
+		.
 
-build: clean deps
-	@echo " -> Building $(TAG)$(BUILD)"
-	@go build -tags "netgo static_build" -installsuffix netgo \
-		-ldflags "-w -X github.com/$(REPO)/${PACKAGE}.GitCommit=$(COMMIT) -X github.com/$(REPO)/${PACKAGE}.Build=$(BUILD)" .
-	@echo "Built $$(./$(APP) -v)"
+install: build
+	@go install
 
 image:
-	@docker build --build-arg TAG=$(TAG) --build-arg BUILD=$(BUILD) -t $(REPO):$(TAG) .
-	@echo "Image created: $(REPO):$(TAG)"
+	@docker build -t prologic/irccat .
 
 test:
-	@go test -v -cover -race $(TEST_ARGS)
+	@go test -v -cover -race .
 
 clean:
-	@rm -rf $(APP)
+	@git clean -f -d -X

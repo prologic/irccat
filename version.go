@@ -1,17 +1,18 @@
 package main
 
+import (
+	"fmt"
+)
+
 var (
 	// Version release version
-	Version = "0.0.1"
+	Version = "0.0.2"
 
-	// Build will be overwritten automatically by the build system
-	Build = "-dev"
-
-	// GitCommit will be overwritten automatically by the build system
-	GitCommit = "HEAD"
+	// Commit will be overwritten automatically by the build system
+	Commit = "HEAD"
 )
 
 // FullVersion display the full version and build
 func FullVersion() string {
-	return Version + Build + " (" + GitCommit + ")"
+	return fmt.Sprintf("%s@%s", Version, Commit)
 }
